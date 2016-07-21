@@ -8,18 +8,20 @@ headers = {
     'Content-Type': 'multipart/form-data',
     'Ocp-Apim-Subscription-Key': ocpApimSubscriptionKey,
 }
-
-def imageSearch(params=None):
-    if params is None:
-        params = urllib.urlencode({
+queryDict = {
             # Request parameters
-            'q': 'forza horizon 3',
+            'q': 'doge',
             'count': '10',
             'offset': '0',
             'mkt': 'en-us',
             'safeSearch': 'Moderate',
-        })
+        }
+params = urllib.urlencode(queryDict)
 
+def imageSearch(pageToShow=None):
+    if pageToShow is not None:
+        queryDict['q'] = pageToShow
+        params = urllib.urlencode(queryDict)
     try:
         conn = httplib.HTTPSConnection('api.cognitive.microsoft.com')
         conn.request("POST",
